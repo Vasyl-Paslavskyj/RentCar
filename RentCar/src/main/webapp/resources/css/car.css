@@ -1,0 +1,11 @@
+#filter span{
+		display: inline-block;
+		width: 100%;
+}
+#filter label{
+		vertical-align: super;
+		padding-left: 2%;
+}
+#filter input[type='text']{
+		width: 49%;
+}

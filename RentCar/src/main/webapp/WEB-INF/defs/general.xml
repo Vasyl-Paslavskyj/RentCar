@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+        "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+      <!-- Some templates -->
+      <definition name="common" template="/WEB-INF/layout/classic.jsp">
+            <put-attribute name="footer" value="/WEB-INF/layout/footer.jsp" />
+            <put-attribute name="header" value="/WEB-INF/layout/header.jsp" />
+      </definition>
+
+      <definition name="index" extends="common">
+            <put-attribute name="title" value="index" />
+            <put-attribute name="body" value="/WEB-INF/views/index.jsp" />
+      </definition>
+
+      <definition name="adminPanel" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminPanel.jsp" />
+      </definition>
+
+      <definition name="adminClassOfCar" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminClassOfCar.jsp" />
+      </definition>
+
+      <definition name="adminStatusCar" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminStatusCar.jsp" />
+      </definition>
+
+      <definition name="adminModelOfCar" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminModelOfCar.jsp" />
+      </definition>
+
+      <definition name="adminCar" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminCar.jsp" />
+      </definition>
+
+      <definition name="adminUser" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminUser.jsp" />
+      </definition>
+
+      <definition name="adminCustom" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminCustom.jsp" />
+      </definition>
+
+      <definition name="adminAccident" extends="common">
+            <put-attribute name="title" value="admin" />
+            <put-attribute name="body" value="/WEB-INF/views/adminAccident.jsp" />
+      </definition>
+      
+      <definition name="login" extends="common">
+		<put-attribute name="title" value="index" />
+		<put-attribute name="body" value="/WEB-INF/views/login.jsp" />
+	</definition>
+	
+	<definition name="registration" extends="common">
+		<put-attribute name="title" value="index" />
+		<put-attribute name="body" value="/WEB-INF/views/registration.jsp" />
+	</definition>
+	
+	<definition name="userPanel" extends="common">
+		<put-attribute name="title" value="user" />
+        <put-attribute name="body" value="/WEB-INF/views/userPanel.jsp" />
+	</definition>
+	<definition name="userCustom" extends="common">
+		<put-attribute name="title" value="user" />
+        <put-attribute name="body" value="/WEB-INF/views/userCustom.jsp" />
+	</definition>
+	<definition name="userAccident" extends="common">
+		<put-attribute name="title" value="user" />
+        <put-attribute name="body" value="/WEB-INF/views/userAccident.jsp" />
+	</definition>
+	<definition name="userHistory" extends="common">
+		<put-attribute name="title" value="user" />
+        <put-attribute name="body" value="/WEB-INF/views/userHistory.jsp" />
+	</definition>
+</tiles-definitions>

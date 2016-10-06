@@ -1,0 +1,12 @@
+body {
+	padding-bottom: 70px; 
+	padding-top: 70px;
+}
+.navbar .navbar-nav {
+	display: inline-block;
+	float: none;
+	vertical-align: top;
+}
+.navbar .navbar-collapse {
+	text-align: center;
+}
