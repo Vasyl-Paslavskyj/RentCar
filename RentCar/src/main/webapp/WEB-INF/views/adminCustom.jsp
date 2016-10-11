@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="custom"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
+<link rel="stylesheet" href="/resources/css/car.css">
 <div class="row-fluid">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
@@ -22,21 +23,17 @@
 				</nav>
 </div>
 <div class="row-fluid">
-	<div class="col-md-12 col-xs-12">
-		<h4>Search by User login OR Car registrationNamber</h4>
+	<div class="col-md-2 col-xs-12">
+		<h5>Search by User login or Car registrationNamber</h5>
 		<form:form action="/admin/custom" class="form-inline" method="get" modelAttribute="filter">
 			<custom:hiddenInputs excludeParams="search1"/>
 				<div class="form-group">
 					<form:input path="search1" placeholder="search by User login OR Car registrationNamber" class="form-control"/>
-				</div>
-				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Ok</button>
 				</div>
 		</form:form>
 	</div>
-</div>
-<%-- <div class="row-fluid">--%>
-	<div class="col-md-12 col-xs-12">
+	<div class="col-md-8 col-xs-12">
 	<h4>Create custom</h4>
 		<form:form action="/admin/custom" method="post" modelAttribute="custom" class="form-inline">
 			<form:errors path="*" />
@@ -113,8 +110,142 @@
 			</div>
 		</form:form>
 	</div>
-<%-- </div> --%>
+	<div class="col-md-2 col-xs-12">
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<custom:sort innerHtml="DateTimeStart asc" paramValue="dateTimeStart"/>
+						<custom:sort innerHtml="DateTimeStart desc" paramValue="dateTimeStart,desc"/>
+						<custom:sort innerHtml="CityStart asc" paramValue="cityStart"/>
+						<custom:sort innerHtml="CityStart desc" paramValue="cityStart,desc"/>
+						<custom:sort innerHtml="DateTimeFinish asc" paramValue="dateTimeFinish"/>
+						<custom:sort innerHtml="DateTimeFinish desc" paramValue="dateTimeFinish,desc"/>
+						<custom:sort innerHtml="CityFinish asc" paramValue="cityFinish"/>
+						<custom:sort innerHtml="CityFinish desc" paramValue="cityFinish,desc"/>
+						<custom:sort innerHtml="User login asc" paramValue="user.login"/>
+						<custom:sort innerHtml="User login desc" paramValue="user.login,desc"/>
+						<custom:sort innerHtml="ClassOfCar price asc" paramValue="car.modelOfCar.classOfCar.price"/>
+						<custom:sort innerHtml="ClassOfCar price desc" paramValue="car.modelOfCar.classOfCar.price,desc"/>
+						<custom:sort innerHtml="RentalLength asc" paramValue="rentalLength"/>
+						<custom:sort innerHtml="RentalLength desc" paramValue="rentalLength,desc"/>
+						<custom:sort innerHtml="Cost asc" paramValue="cost"/>
+						<custom:sort innerHtml="Cost desc" paramValue="cost,desc"/>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<custom:size posibleSizes="1,2,5,10" size="${page.size}" title="Розмір сторінки"/>
+			</div>
+	</div>
+</div>
+<div class="row-fluid">
+	<div class="col-md-12 col-xs-12">
+		<div class="row">
+			<div class="col-md-2"><h5>User</h5></div>
+			<div class="col-md-2"><h5>Car</h5></div>
+			<div class="col-md-1"><h5>DateTimeStart</h5></div>
+			<div class="col-md-1"><h5>CityStart</h5></div>
+			<div class="col-md-1"><h5>DateTimeFinish</h5></div>
+			<div class="col-md-1"><h5>CityFinish</h5></div>
+			<div class="col-md-1"><h5>RentalLength</h5></div>
+			<div class="col-md-1"><h5>Cost</h5></div>
+			<div class="col-md-1"><h5>Delete</h5></div>
+			<div class="col-md-1"><h5>Update</h5></div>
+		</div>
+		<c:forEach items="${page.content}" var="custom">
+			<div class="row">
+				<div class="col-md-2">${custom.user.fullName}</div>
+				<div class="col-md-2">${custom.car.modelOfCar.classOfCar.typeClassOfCar}-${custom.car.modelOfCar.typeModelCar}-${custom.car.registrationNamber}</div>
+				<div class="col-md-1">${custom.dateTimeStart}</div>
+				<div class="col-md-1">${custom.cityStart}</div>
+				<div class="col-md-1">${custom.dateTimeFinish}</div>
+				<div class="col-md-1">${custom.cityFinish}</div>
+				<div class="col-md-1">${custom.rentalLength}</div>
+				<div class="col-md-1">${custom.cost}</div>
+				<div class="col-md-1"><a href="/admin/custom/delete/${custom.id}<custom:allParams/>">delete</a></div>
+				<div class="col-md-1"><a href="/admin/custom/update/${custom.id}<custom:allParams/>">update</a></div>
+			</div>
+		</c:forEach>
+		<div class="col-md-12 text-center">
+			<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>" />
+		</div>
+	</div>
+</div>
 
+<%--<table>
+<tr>
+  <th>User</th>
+  <th>Car</th>
+  <th>DateTimeStart</th>
+  <th>CityStart</th>
+  <th>DateTimeFinish</th>
+  <th>CityFinish</th>
+  <th>RentalLength</th>
+  <th>Cost</th>
+</tr>
+<c:forEach items="${page.content}" var="custom">
+  <tr>
+    <td>${custom.user.fullName} (${custom.user.drivingExperience})</td>
+    <td>${custom.car.modelOfCar.classOfCar.typeClassOfCar}-${custom.car.modelOfCar.typeModelCar}-${custom.car.registrationNamber}</td>
+    <td>${custom.dateTimeStart}</td>
+    <td>${custom.cityStart}</td>
+    <td>${custom.dateTimeFinish}</td>
+    <td>${custom.cityFinish}</td>
+    <td>${custom.rentalLength}</td>
+    <td>${custom.cost}</td>
+    <td><a href="/admin/custom/update/${custom.id}?page=${page.number+1}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">update</a></td>
+    <td><a href="/admin/custom/delete/${custom.id}?page=${page.number+1}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">delete</a></td>
+  </tr>
+</c:forEach>
+
+<tr>
+  	<c:if test="${!page.isFirst()}">
+  		<td>
+  			<a href="?page=${page.number}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">Previous</a>
+  		</td>
+  	</c:if>
+  	<c:if test="${!page.isLast()}">
+  		<td>
+  			<a href="?page=${page.number+2}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">Next</a>
+  		</td>
+  	</c:if>
+</tr>
+<tr>
+  	<td><a href="?page=1&size=1&sort=${param['sort']}&search=${param['search']}">1</a></td>
+  	<td><a href="?page=1&size=4&sort=${param['sort']}&search=${param['search']}">4</a></td>
+  	<td><a href="?page=1&size=8&sort=${param['sort']}&search=${param['search']}">8</a></td>
+  	<td><a href="?page=1&size=20&sort=${param['sort']}&search=${param['search']}">20</a></td>
+</tr>
+<tr>
+  	<td><a href="?page=1&size=${page.size}&sort=dateTimeStart&search=${param['search']}">DateTimeStart asc</a></td>
+  	<td><a href="?page=1&size=${page.size}&sort=dateTimeStart,desc&search=${param['search']}">DateTimeStart desc</a></td>
+</tr>
+<tr>
+  	<td><a href="?page=1&size=${page.size}&sort=cityStart&search=${param['search']}">CityStart asc</a></td>
+  	<td><a href="?page=1&size=${page.size}&sort=cityStart,desc&search=${param['search']}">CityStart desc</a></td>
+</tr>
+<tr>
+  	<td><a href="?page=1&size=${page.size}&sort=user.login&search=${param['search']}">User asc</a></td>
+  	<td><a href="?page=1&size=${page.size}&sort=user.login,desc&search=${param['search']}">User desc</a></td>
+</tr>
+<tr>
+  	<td><a href="?page=1&size=${page.size}&sort=car.modelOfCar.classOfCar.typeClassOfCar&search=${param['search']}">Car asc</a></td>
+  	<td><a href="?page=1&size=${page.size}&sort=car.modelOfCar.classOfCar.typeClassOfCar,desc&search=${param['search']}">Car desc</a></td>
+</tr>
+<tr>
+  	<td><a href="?page=1&size=${page.size}&sort=rentalLength&search=${param['search']}">RentalLength asc</a></td>
+  	<td><a href="?page=1&size=${page.size}&sort=rentalLength,desc&search=${param['search']}">RentalLength desc</a></td>
+</tr>
+<tr>
+  	<td><a href="?page=1&size=${page.size}&sort=cost&search=${param['search']}">Cost asc</a></td>
+  	<td><a href="?page=1&size=${page.size}&sort=cost,desc&search=${param['search']}">Cost desc</a></td>
+</tr>
+</table>
+<div class="col-md-12 text-center">
+		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>"/>
+</div>--%>
 
 <%--<body>
 <form:form action="/admin/custom" method="post" modelAttribute="custom">
@@ -291,76 +422,3 @@
 		</tr>
 	</table>
 </form>-->
-
-<table>
-<tr>
-  <th>User</th>
-  <th>Car</th>
-  <th>DateTimeStart</th>
-  <th>CityStart</th>
-  <th>DateTimeFinish</th>
-  <th>CityFinish</th>
-  <th>RentalLength</th>
-  <th>Cost</th>
-</tr>
-<c:forEach items="${page.content}" var="custom">
-  <tr>
-    <td>${custom.user.fullName} (${custom.user.drivingExperience})</td>
-    <td>${custom.car.modelOfCar.classOfCar.typeClassOfCar}-${custom.car.modelOfCar.typeModelCar}-${custom.car.registrationNamber}</td>
-    <td>${custom.dateTimeStart}</td>
-    <td>${custom.cityStart}</td>
-    <td>${custom.dateTimeFinish}</td>
-    <td>${custom.cityFinish}</td>
-    <td>${custom.rentalLength}</td>
-    <td>${custom.cost}</td>
-    <td><a href="/admin/custom/update/${custom.id}?page=${page.number+1}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">update</a></td>
-    <td><a href="/admin/custom/delete/${custom.id}?page=${page.number+1}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">delete</a></td>
-  </tr>
-</c:forEach>
-
-<tr>
-  	<c:if test="${!page.isFirst()}">
-  		<td>
-  			<a href="?page=${page.number}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">Previous</a>
-  		</td>
-  	</c:if>
-  	<c:if test="${!page.isLast()}">
-  		<td>
-  			<a href="?page=${page.number+2}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">Next</a>
-  		</td>
-  	</c:if>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=1&sort=${param['sort']}&search=${param['search']}">1</a></td>
-  	<td><a href="?page=1&size=4&sort=${param['sort']}&search=${param['search']}">4</a></td>
-  	<td><a href="?page=1&size=8&sort=${param['sort']}&search=${param['search']}">8</a></td>
-  	<td><a href="?page=1&size=20&sort=${param['sort']}&search=${param['search']}">20</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=dateTimeStart&search=${param['search']}">DateTimeStart asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=dateTimeStart,desc&search=${param['search']}">DateTimeStart desc</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=cityStart&search=${param['search']}">CityStart asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=cityStart,desc&search=${param['search']}">CityStart desc</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=user.login&search=${param['search']}">User asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=user.login,desc&search=${param['search']}">User desc</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=car.modelOfCar.classOfCar.typeClassOfCar&search=${param['search']}">Car asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=car.modelOfCar.classOfCar.typeClassOfCar,desc&search=${param['search']}">Car desc</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=rentalLength&search=${param['search']}">RentalLength asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=rentalLength,desc&search=${param['search']}">RentalLength desc</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=cost&search=${param['search']}">Cost asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=cost,desc&search=${param['search']}">Cost desc</a></td>
-</tr>
-</table>
-<div class="col-md-12 text-center">
-		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>"/>
-</div>

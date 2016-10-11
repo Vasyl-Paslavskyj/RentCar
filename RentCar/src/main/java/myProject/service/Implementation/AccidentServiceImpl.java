@@ -52,15 +52,7 @@ public class AccidentServiceImpl implements AccidentService {
 		}
 		return accidentForm;
 	}
-//    public void saveIfOneCar(LocalDateTime dateTime, String damage, int wastage, String name, String passport, String registrationNamber){
-//        Accident accident = new Accident();
-//        accident.setDateTime(dateTime);
-//        accident.setDamage(damage);
-//        accident.setWastage(wastage);
-//        Custom custom = customRepository.findCustomByDriavarNameAndPassportAndCarRegistrationNamber(name, passport, registrationNamber);
-//        accident.getCustomSet().add(custom);
-//        accidentRepository.saveAndFlush(accident);
-//    }
+
     public void saveIfOneCar(String dateTimeString, String damage, int wastage, long customId) {
     	Accident accident = new Accident();
     	LocalDateTime dateTime = LocalDateTimeParser.localDateTimeParser(dateTimeString);
@@ -85,18 +77,6 @@ public class AccidentServiceImpl implements AccidentService {
     	accidentRepository.saveAndFlush(accident);		
 	}
     
-//    public void saveIfTwoCars(LocalDateTime dateTime, String damage, int wastage,
-//                              String nameFirst, String passportFirst, String registrationNamberFirst,
-//                              String nameSecond, String passportSecond, String registrationNamberSecond) {
-//        Accident accident = new Accident();
-//        accident.setDateTime(dateTime);
-//        accident.setDamage(damage);
-//        accident.setWastage(wastage);
-//        List<Custom> customList = customRepository.findListCustomByDriavarNameAndPassportAndCarRegistrationNamber(nameFirst, passportFirst, registrationNamberFirst,
-//                nameSecond, passportSecond, registrationNamberSecond);
-//        accident.getCustomSet().addAll(customList);
-//        accidentRepository.saveAndFlush(accident);
-//    }
     public void saveIfTwoCars(String dateTimeString, String damage, int wastage, 
     		long customFirstId, long customSecondId) {
     	Accident accident = new Accident();

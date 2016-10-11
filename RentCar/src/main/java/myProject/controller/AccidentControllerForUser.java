@@ -5,9 +5,7 @@ import java.security.Principal;
 import javax.validation.Valid;
 
 import myProject.form.AccidentForm;
-import myProject.form.filter.AccidentFilterForm;
 import myProject.form.filter.AccidentFilterFormForUser;
-import myProject.form.filter.CustomFilterFormForUser;
 import myProject.models.Car;
 import myProject.models.ClassOfCar;
 import myProject.models.Custom;

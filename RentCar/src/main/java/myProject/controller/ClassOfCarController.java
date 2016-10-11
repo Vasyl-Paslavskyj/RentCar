@@ -4,7 +4,6 @@ import javax.validation.Valid;
 
 import myProject.form.ClassOfCarForm;
 import myProject.form.filter.ClassOfCarFilterForm;
-import myProject.models.ClassOfCar;
 import myProject.service.ClassOfCarService;
 import myProject.service.Implementation.validator.ClassOfCarFormValidator;
 

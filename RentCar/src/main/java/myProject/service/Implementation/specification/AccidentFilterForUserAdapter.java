@@ -12,7 +12,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import myProject.form.filter.AccidentFilterFormForUser;
-import myProject.form.filter.CustomFilterFormForUser;
 import myProject.models.Accident;
 import myProject.models.Car;
 import myProject.models.ClassOfCar;

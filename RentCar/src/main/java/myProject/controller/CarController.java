@@ -161,10 +161,6 @@ public class CarController {
 			buffer.append("&typeClassOfCarIds=");
 			buffer.append(s);
 		}
-//		for(Integer i : form.getModelOfCar()){
-//			buffer.append("&modelOfCarIds=");
-//			buffer.append(i.toString());
-//		}
 		for(Integer i : form.getStatusCar()){
 			buffer.append("&statusCarIds=");
 			buffer.append(i.toString());

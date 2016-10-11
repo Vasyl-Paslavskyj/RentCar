@@ -43,5 +43,4 @@ public interface UserService {
     
     List<Accident> findAllAccidentsByUserId(long id);
     
-//    boolean isValidUser(String email);
 }

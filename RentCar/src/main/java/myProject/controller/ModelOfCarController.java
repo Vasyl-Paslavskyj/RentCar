@@ -3,7 +3,6 @@ package myProject.controller;
 import javax.validation.Valid;
 
 import myProject.form.ModelOfCarForm;
-import myProject.form.filter.ClassOfCarFilterForm;
 import myProject.form.filter.ModelOfCarFilterForm;
 import myProject.models.ClassOfCar;
 import myProject.service.ClassOfCarService;
@@ -54,7 +53,7 @@ public class ModelOfCarController {
     
     @RequestMapping("/admin/modelOfCar")
     public String showModelOfCar(Model model, 
-    		@PageableDefault(5) Pageable pageable, 
+    		@PageableDefault(3) Pageable pageable, 
     		@ModelAttribute(value="filter") ModelOfCarFilterForm form){
     	model.addAttribute("classOfCars", serviceClassOfCar.findAll());
         model.addAttribute("page", serviceModelOfCar.findAll(pageable, form));
@@ -80,13 +79,6 @@ public class ModelOfCarController {
 //	public String save(@RequestParam long classOfCarId, 
 //			@RequestParam TypeModelCar typeModelCar){
 //    	serviceModelOfCar.saveNew(classOfCarId, typeModelCar);;
-//		return "redirect:/admin/modelOfCar";
-//    }
-
-//    @RequestMapping(value="/admin/modelOfCar/delete/{typeClassOfCar, typeModelCar}")
-//	public String delete(@PathVariable TypeClassOfCar typeClassOfCar, 
-//			@PathVariable TypeModelCar typeModelCar){
-//    	serviceModelOfCar.delete(typeClassOfCar, typeModelCar);
 //		return "redirect:/admin/modelOfCar";
 //    }
     

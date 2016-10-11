@@ -106,7 +106,13 @@ $(function() {
 					<div class="form-group">
 						<label for="registrationNamber"><form:errors path="registrationNamber" /></label>
 						<form:input path="registrationNamber" id="registrationNamber" class="form-control" />
-						<form:select path="modelOfCar" items="${modelOfCars}" itemLabel="id" itemValue="id">
+						<form:select path="modelOfCar">
+							<c:forEach items="${modelOfCars}" var="modelOfCar">
+								<form:option value="${modelOfCar.id}">
+									${modelOfCar.classOfCar.typeClassOfCar} (${modelOfCar.classOfCar.price}) - 
+									${modelOfCar.typeModelCar}
+								</form:option>
+							</c:forEach>
 						</form:select>
 						<form:select path="statusCar" items="${statusCars}" itemLabel="status" itemValue="id">
 						</form:select>
@@ -115,16 +121,16 @@ $(function() {
 	</form:form>
 	<div class="row">
 		<div class="col-md-2"><h4>RNamber</h4></div>
-		<div class="col-md-2"><h4>ModelOfCar</h4></div>
-		<div class="col-md-4"><h4>StatusCar</h4></div>
+		<div class="col-md-4"><h4>ModelOfCar</h4></div>
+		<div class="col-md-2"><h4>StatusCar</h4></div>
 		<div class="col-md-2"><h4>Delete</h4></div>
 		<div class="col-md-2"><h4>Update</h4></div>
 	</div>
 		<c:forEach items="${page.content}" var="car">
 			<div class="row">
 				<div class="col-md-2">${car.registrationNamber}</div>
-				<div class="col-md-2">${car.modelOfCar.classOfCar.typeClassOfCar}(${car.modelOfCar.classOfCar.price}) - ${car.modelOfCar.typeModelCar}</div>
-				<div class="col-md-4">${car.statusCar.status}</div>
+				<div class="col-md-4">${car.modelOfCar.classOfCar.typeClassOfCar}(${car.modelOfCar.classOfCar.price}) - ${car.modelOfCar.typeModelCar}</div>
+				<div class="col-md-2">${car.statusCar.status}</div>
 				<div class="col-md-2"><a href="/admin/car/delete/${car.id}<custom:allParams/>">delete</a></div>
 				<div class="col-md-2"><a href="/admin/car/update/${car.id}<custom:allParams/>">update</a></div>
 			</div>

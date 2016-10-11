@@ -95,8 +95,5 @@ public class ModelOfCarServiceImpl implements ModelOfCarService {
 		form.setVersion(modelOfCar.getVersion());
 		return form;
 	}
-		
-//	public void delete(TypeClassOfCar typeClassOfCar, TypeModelCar typeModelCar) {
-//		modelOfCarRepository.delete(typeClassOfCar, typeModelCar);
-//	}
+
 }

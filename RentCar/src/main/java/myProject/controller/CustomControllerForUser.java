@@ -159,12 +159,7 @@ public class CustomControllerForUser {
 		for(String s : form.getTypeClassOfCar()){
 			buffer.append("&typeClassOfCarIds=");
 			buffer.append(s);
-		}
-//		for(Integer i : form.getModelOfCar()){
-//			buffer.append("&modelOfCarIds=");
-//			buffer.append(i.toString());
-//		}
-		
+		}		
 		return buffer.toString();
     }
     

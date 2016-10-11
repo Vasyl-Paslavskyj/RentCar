@@ -48,6 +48,14 @@
 				</div>
 				<div class="form-group">
 					<form:select items="${accidentSetIds}" path="id" />
+					<%-- <form:select path="accidentSet">
+						<c:forEach items="${accidentSets}" var="accident">
+							<form:option value="${accident.id}">
+								${accident.id} (${accident.dateTime} - 
+								${accident.damage} - ${accident.wastage})
+							</form:option>
+						</c:forEach>
+					</form:select>--%>
 				</div>
 				
 				<div class="form-group">

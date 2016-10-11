@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * Created by Vasj on 19.08.2016.
@@ -47,10 +46,6 @@ public class UserController {
     	return new UserFilterForm();
     }
 
-    @RequestMapping("/registration")
-	public String register(){
-		return "registration";
-    }
     @RequestMapping(value="/registration", method=RequestMethod.POST)
     public String saveUser(@ModelAttribute("user") @Valid UserForm user, 
     		BindingResult br){

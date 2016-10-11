@@ -28,6 +28,11 @@ public class IndexController {
 		return "login";
 	}
 	
+	@RequestMapping("/registration")
+	public String showRegistration() {
+		return "registration";
+	}
+	
 	@RequestMapping("/user")
 	public String showUser(){
 		return "userPanel";

@@ -2,7 +2,6 @@ package myProject.controller;
 
 import java.security.Principal;
 
-import myProject.form.filter.CustomFilterFormForUser;
 import myProject.form.filter.HistoryFilterFormForUser;
 import myProject.models.Accident;
 import myProject.models.Car;

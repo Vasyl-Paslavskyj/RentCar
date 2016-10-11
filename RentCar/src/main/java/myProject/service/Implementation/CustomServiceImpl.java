@@ -37,28 +37,6 @@ public class CustomServiceImpl implements CustomService{
 
     @Autowired
     CarRepository carRepository;
-
-//    public int findCountOrdersForUse(String passport) {
-//        return customRepository.findCountOrdersForUse(passport);
-//    }
-
-//    public void save(String name, String passport,
-//                     TypeClassOfCar typeClassOfCar, TypeModelCar typeModelCar, String registrationNamber,
-//                     LocalDateTime dateTimeStart, City cityStart, LocalDateTime dateTimeFinish, City cityFinish,
-//                     Integer rentalLength, Integer cost) {
-//        Custom custom = new Custom();
-//        User user = userRepository.findByNameAndPassport(name, passport);
-//        Car car = carRepository.findByTypeClassOfCarAndTypeModelCarAndRegistrationNamber(typeClassOfCar, typeModelCar, registrationNamber);
-//        custom.setUser(user);
-//        custom.setCar(car);
-//        custom.setDateTimeStart(dateTimeStart);
-//        custom.setCityStart(cityStart);
-//        custom.setDateTimeFinish(dateTimeFinish);
-//        custom.setCityFinish(cityFinish);
-//        custom.setRentalLength(rentalLength);
-//        custom.setCost(cost);
-//        customRepository.saveAndFlush(custom);
-//    }
     
     public void saveNew(long userId, long carId, String dateTimeStartStr, 
     		City cityStart, String dateTimeFinishStr, City cityFinish, 
@@ -200,22 +178,5 @@ public class CustomServiceImpl implements CustomService{
 	}
 	public void delete(long id) {
 		customRepository.delete(id);		
-	}
-			
-//    public List<Custom> findByDriavarNameAndPassportAndCarRegistrationNamber(String name, String passport, String registrationNamber) {
-//        return customRepository.findByDriavarNameAndPassportAndCarRegistrationNamber(name, passport, registrationNamber);
-//    }
-//
-//    public Custom findCustomByDriavarNameAndPassportAndCarRegistrationNamber(String name, String passport, String registrationNamber) {
-//        return customRepository.findCustomByDriavarNameAndPassportAndCarRegistrationNamber(name, passport, registrationNamber);
-//    }
-//
-//    public int findCostByDriavarNameAndPpassport(String name, String passport) {
-//        return customRepository.findCostByDriavarNameAndPpassport(name, passport);
-//    }
-
-//	public int updateIsActiveById(long id) {
-//		return customRepository.updateIsActiveById(id);
-//	}
-    
+	}    
 }

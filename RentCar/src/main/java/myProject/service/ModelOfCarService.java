@@ -31,5 +31,4 @@ public interface ModelOfCarService {
     
     void delete(long id);
 
-//    void delete(TypeClassOfCar typeClassOfCar, TypeModelCar typeModelCar);
 }

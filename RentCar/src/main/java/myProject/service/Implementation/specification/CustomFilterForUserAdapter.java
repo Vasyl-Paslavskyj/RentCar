@@ -71,12 +71,10 @@ public class CustomFilterForUserAdapter implements Specification<Custom>{
 			});
 		}else if(form.getMinDT()!=null){
 			filters.add((root, query, cb)->{
-//				Expression<LocalDateTime> exp = root.get("dateTimeStart");
 				return cb.greaterThanOrEqualTo(root.get("dateTimeStart"), form.getMinDT());
 			});
 		}else if(form.getMaxDT()!=null){
 			filters.add((root, query, cb)->{
-//				Expression<LocalDateTime> exp = root.get("dateTimeStart");
 				return cb.lessThanOrEqualTo(root.get("dateTimeStart"), form.getMaxDT());
 			});
 		}

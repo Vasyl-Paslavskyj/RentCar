@@ -3,12 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="custom"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
+<link rel="stylesheet" href="/resources/css/car.css">
 <div class="row-fluid">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
@@ -27,7 +22,98 @@
 					</div>
 				</nav>
 </div>
-<form:form action="/admin/accident" method="post" modelAttribute="accident">
+
+<div class="row-fluid">
+	<div class="col-md-3 col-xs-12">		
+		<h4>Search by Car registrationNamber or User login</h4>
+			<form:form action="/admin/accident" class="form-inline" method="get" modelAttribute="filter">
+				<custom:hiddenInputs excludeParams="search"/>
+				<div class="form-group">
+					<form:input path="search" placeholder="search registrationNamber or login" class="form-control"/>
+				</div>
+				<div class="form-group">
+					<button type="submit" class="btn btn-primary">Ok</button>
+				</div>
+			</form:form>
+	</div>
+	
+	<div class="col-md-7 col-xs-12">
+		<form:form class="form-inline" action="/admin/accident" method="post" modelAttribute="accident">
+			<form:errors path="*"/>
+			<form:hidden path="id" />
+			<custom:hiddenInputs excludeParams="dateTime, damage, wastage, customSet, id"/>
+			<div class="form-group">
+				<label for="dateTime"><form:errors path="dateTime" /></label>
+				<form:input path="dateTime" id="dateTime" class="form-control" />
+				<label for="damage"><form:errors path="damage" /></label>
+				<form:input path="damage" id="damage" class="form-control" />
+				<label for="wastage"><form:errors path="wastage" /></label>
+				<form:input path="wastage" id="wastage" class="form-control" />
+				<label for="customSet"><form:errors path="customSet" /></label>
+				<form:select path="customSet">
+					<c:forEach items="${customs}" var="custom">
+						<form:option value="${custom.id}">
+							${custom.id} (${custom.user.fullName} - 
+							(${custom.car.modelOfCar.classOfCar.typeClassOfCar}(${custom.car.modelOfCar.classOfCar.price}) 
+							${custom.car.modelOfCar.typeModelCar} №${custom.car.registrationNamber})
+							- ${custom.dateTimeStart} - ${custom.cityStart})
+						</form:option>
+					</c:forEach>
+				</form:select>
+				<button type="submit" class="btn btn-primary">Create</button>
+			</div>
+		</form:form>
+		<div class="row">
+			<div class="col-md-2"><h5>DateTime</h5></div>
+			<div class="col-md-2"><h5>Damage</h5></div>
+			<div class="col-md-1"><h5>Wastage</h5></div>
+			<div class="col-md-4"><h5>CustomSet</h5></div>
+			<div class="col-md-1"><h5>Delete</h5></div>
+			<div class="col-md-1"><h5>Update</h5></div>
+		</div>
+		<c:forEach items="${page.content}" var="accident">
+			<div class="row">
+				<div class="col-md-2">${accident.dateTime}</div>
+				<div class="col-md-2">${accident.damage}</div>
+				<div class="col-md-1">${accident.wastage}</div>
+				<div class="col-md-4">
+					<c:forEach items="${accident.customSet}" var="custom">
+    					${custom.id} (${custom.user.fullName} - Car_RN(${custom.car.registrationNamber}) - 
+    					${custom.dateTimeStart} - ${custom.cityStart});
+    					<br>
+    				</c:forEach>
+				</div>
+				<div class="col-md-1"><a href="/admin/accident/delete/${accident.id}<custom:allParams/>">delete</a></div>
+				<div class="col-md-1"><a href="/admin/accident/update/${accident.id}<custom:allParams/>">update</a></div>
+			</div>
+		</c:forEach>
+		<div class="col-md-12 text-center">
+			<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>" />
+		</div>
+	</div>
+	<div class="col-md-2 col-xs-12">
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<custom:sort innerHtml="DateTime asc" paramValue="dateTime"/>
+						<custom:sort innerHtml="DateTime desc" paramValue="dateTime,desc"/>
+						<custom:sort innerHtml="Damage asc" paramValue="damage"/>
+						<custom:sort innerHtml="Damage desc" paramValue="damage,desc"/>
+						<custom:sort innerHtml="Wastage asc" paramValue="wastage"/>
+						<custom:sort innerHtml="Wastage desc" paramValue="wastage,desc"/>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<custom:size posibleSizes="1,2,5,10" size="${page.size}" title="Розмір сторінки"/>
+			</div>
+	</div>
+</div>
+
+
+<%--<form:form action="/admin/accident" method="post" modelAttribute="accident">
 	<form:hidden path="id"/>
 	<c:forEach items="${param}" var="parameter">
 			<c:forEach items="${parameter.value}" var="value">
@@ -51,7 +137,10 @@
 				<form:select path="customSet">
 					<c:forEach items="${customs}" var="custom">
 						<form:option value="${custom.id}">
-							${custom.id} (${custom.user.fullName} - ${custom.car} - ${custom.dateTimeStart} - ${custom.cityStart})
+							${custom.id} (${custom.user.fullName} - 
+							(${custom.car.modelOfCar.classOfCar.typeClassOfCar}(${custom.car.modelOfCar.classOfCar.price}) 
+							${custom.car.modelOfCar.typeModelCar} №${custom.car.registrationNamber})
+							- ${custom.dateTimeStart} - ${custom.cityStart})
 						</form:option>
 					</c:forEach>
 				</form:select>
@@ -63,73 +152,6 @@
 	</table>
 </form:form>
 
-<form:form action="/admin/accident" method="get" modelAttribute="filter">
-	<c:forEach items="${param}" var="parameter">
-			<c:forEach items="${parameter.value}" var="value">
-				<c:if test="${parameter.key ne 'search'}">
-					<input type="hidden" name="${parameter.key}" value="${value}">
-				</c:if>
-			</c:forEach>
-	</c:forEach>
-	<table>
-			<tr>
-				<td><form:input path="search" placeholder="search"/><input type="submit" value="ok"></td>
-			</tr>
-	</table>
-</form:form>
-
-
-<!--<form action="/admin/accidentIfOneCar" method="post">
-	<table>
-		<tr>
-			<td><input name="dateTimeString" placeholder="String dateTimeString"></td>
-			<td><input name="damage" placeholder="String damage"></td>
-			<td><input name="wastage" placeholder="int wastage"></td>
-			<td>
-				<select name="customId">
-					<c:forEach items="${customs}" var="custom">
-						<option value="${custom.id}">
-							${custom}
-						</option>
-					</c:forEach>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td><input type="submit"></td>
-		</tr>
-	</table>
-</form>
-<form action="/admin/accidentIfTwoCars" method="post">
-	<table>
-		<tr>
-			<td><input name="dateTimeString" placeholder="String dateTimeString"></td>
-			<td><input name="damage" placeholder="String damage"></td>
-			<td><input name="wastage" placeholder="int wastage"></td>
-			<td>
-				<select name="customFirstId">
-					<c:forEach items="${customs}" var="custom">
-						<option value="${custom.id}">
-							${custom}
-						</option>
-					</c:forEach>
-				</select>
-			</td>
-			<td>
-				<select name="customSecondId">
-					<c:forEach items="${customs}" var="custom">
-						<option value="${custom.id}">
-							${custom}
-						</option>
-					</c:forEach>
-				</select>
-			</td>
-		</tr>
-		<tr>
-			<td><input type="submit"></td>
-		</tr>
-	</table>
-</form>-->
 <table>
 <tr>
   <th>DateTime</th>
@@ -181,6 +203,4 @@
 </table>
 <div class="col-md-12 text-center">
 		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>"/>
-</div>
-</body>
-</html>
+</div>--%>

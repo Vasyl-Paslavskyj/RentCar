@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="custom"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<link rel="stylesheet" href="/resources/css/car.css">
 
 <div class="row-fluid">
 				<nav class="navbar navbar-default">
@@ -37,21 +38,6 @@
 					<button type="submit" class="btn btn-danger">Ok</button>
 				</div>
 		</form:form>
-		
-		<!--<form:form action="/admin/modelOfCar" method="get" modelAttribute="filter">
-			<c:forEach items="${param}" var="parameter">
-				<c:forEach items="${parameter.value}" var="value">
-					<c:if test="${parameter.key ne 'search'}">
-						<input type="hidden" name="${parameter.key}" value="${value}">
-					</c:if>
-				</c:forEach>
-			</c:forEach>
-		<table>
-			<tr>
-				<td><form:input path="search" placeholder="search"/><input type="submit" value="ok"></td>
-			</tr>
-		</table>
-		</form:form>-->
 </div>
 
 <div class="col-md-7">
@@ -63,10 +49,6 @@
 	
 	<custom:hiddenInputs excludeParams="classOfCar, id, typeModelCar, path, version"/>
 		<div class="form-group">
-			<!--<form:select path="classOfCar" items="${classOfCars}" itemValue="id">
-				<option value="0">ClassOfCar</option>
-				${classOfCar.typeClassOfCar} - ${classOfCar.price}
-			</form:select>-->
 			<label for="classOfCar"><form:errors path="classOfCar"/></label>
 			<form:select path="classOfCar">
 						<option value="0" selected="selected"></option>	
@@ -92,86 +74,48 @@
     		</label>
 			<button type="submit" class="btn btn-primary">Create ModelOfCar</button>
 		</div>
-	
-	<!-- <c:forEach items="${param}" var="parameter">
-			<c:forEach items="${parameter.value}" var="value">
-				<c:if test="${parameter.key ne 'classOfCar' and parameter.key ne 'typeModelCar' and parameter.key ne 'id'}">
-					<input type="hidden" name="${parameter.key}" value="${value}">
-				</c:if>
-			</c:forEach>
-	</c:forEach>
-	
-	<table>
-			<tr>
-				<td>
-					<form:errors path="classOfCar" cssClass="error"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<form:select path="classOfCar">
-						<option value="0" selected="selected"></option>	
-						<c:forEach items="${classOfCars}" var="classOfCar">
-							<c:choose>
-								<c:when test="${classOfCar.id eq modelOfCar.classOfCar.id}">
-									<option value="${classOfCar.id}" selected="selected">${classOfCar.typeClassOfCar}</option>
-								</c:when>
-								<c:otherwise>
-									<option value="${classOfCar.id}">${classOfCar.typeClassOfCar}</option>
-								</c:otherwise>
-							</c:choose>
-						</c:forEach>
-					</form:select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<form:errors path="typeModelCar" cssClass="error"/>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<form:input path="typeModelCar" placeholder="TypeModelCar"/>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="submit"></td>
-			</tr>
-	</table>-->
 </form:form>
+	<div class="row">
+		<div class="col-md-3"><h5>Image</h5></div>
+		<div class="col-md-3"><h5>ClassOfCar</h5></div>
+		<div class="col-md-2"><h5>TypeModelCar</h5></div>
+		<div class="col-md-2"><h5>Delete</h5></div>
+		<div class="col-md-2"><h5>Update</h5></div>
+	</div>
+		<c:forEach items="${page.content}" var="modelOfCar">
+			<div class="row">
+				<div class="col-md-3"><img class="img-thumbnail" width="100" src="/images/modelOfCar/${modelOfCar.id}${modelOfCar.path}?version=${modelOfCar.version}" /></div>
+				<div class="col-md-3">${modelOfCar.classOfCar.typeClassOfCar} - ${modelOfCar.classOfCar.price}</div>
+				<div class="col-md-2">${modelOfCar.typeModelCar}</div>
+				<div class="col-md-2"><a href="/admin/modelOfCar/delete/${modelOfCar.id}<modelOfCar:allParams/>">delete</a></div>
+				<div class="col-md-2"><a href="/admin/modelOfCar/update/${modelOfCar.id}<modelOfCar:allParams/>">update</a></div>
+			</div>
+		</c:forEach>
+		<div class="col-md-12 text-center">
+			<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>" />
+		</div>
 </div>
+	<div class="col-md-2 col-xs-12">
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<custom:sort innerHtml="TypeModelCar asc" paramValue="typeModelCar"/>
+						<custom:sort innerHtml="TypeModelCar desc" paramValue="typeModelCar,desc"/>
+						<custom:sort innerHtml="TypeClassOfCar asc" paramValue="classOfCar.typeClassOfCar"/>
+						<custom:sort innerHtml="TypeClassOfCar desc" paramValue="classOfCar.typeClassOfCar,desc"/>
+						<custom:sort innerHtml="Price asc" paramValue="classOfCar.price"/>
+						<custom:sort innerHtml="Price desc" paramValue="classOfCar.price,desc"/>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<custom:size posibleSizes="1,3,5,10" size="${page.size}" title="Розмір сторінки"/>
+			</div>
+	</div>
 
-<!-- <form action="/admin/modelOfCar" method="post">
-		<table>
-			<tr>
-				<td>
-					<select name="classOfCarId">
-						<c:forEach items="${classOfCars}" var="classOfCar">
-							<option value="${classOfCar.id}">
-								${classOfCar}
-							</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<select name="typeModelCar">
-						<c:forEach items="${typeModelCars}" var="typeModelCar">
-							<option>
-								${typeModelCar}
-							</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<td><input type="submit"></td>
-			</tr>
-		</table>
-</form>-->
-
-<table>
+<%--<table>
 <tr>
 	<th>Image</th>
   <th>ClassOfCar</th>
@@ -217,4 +161,4 @@
 <div class="col-md-12 text-center">
 		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>"/>
 </div>
-</div>
+</div> --%>

@@ -21,12 +21,6 @@ public interface AccidentService {
 	 Accident findById(long id);
 	 AccidentForm findForForm(long id);
 	 
-//    void saveIfOneCar(LocalDateTime dateTime, String damage, int wastage, String name, String passport, String registrationNamber);
-
-//    void saveIfTwoCars(LocalDateTime dateTime, String damage, int wastage,
-//                       String nameFirst, String passportFirst, String registrationNamberFirst,
-//                       String nameSecond, String passportSecond, String registrationNamberSecond);
-	
 	void saveIfOneCar(String dateTimeString, String damage, int wastage, long customId);
 	
 	void saveIfOneCar(AccidentForm accidentForm);

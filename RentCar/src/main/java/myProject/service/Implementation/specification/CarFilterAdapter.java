@@ -15,7 +15,6 @@ import myProject.form.filter.CarFilterForm;
 import myProject.models.Car;
 import myProject.models.ClassOfCar;
 import myProject.models.ModelOfCar;
-import myProject.models.StatusCar;
 
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.domain.Specifications;
@@ -68,15 +67,7 @@ public class CarFilterAdapter implements Specification<Car>{
 			});
 		}
 	}
-//	private void findClassOfCarByTypeClassOfCar(){
-//		if(!form.getClassOfCar().isEmpty()){
-//			filters.add((root, query, cb)->{
-//				Join<Car, ModelOfCar> join1 = root.join("modelOfCar");
-//				Predicate pr = join1.get("classOfCar").in(form.getClassOfCar());
-//				return pr;
-//			});
-//		}
-//	}
+
 	private void findByTypeModelCar(){
 		if(!form.getTypeModelCar().isEmpty()){
 			filters.add((root, query, cb)->{
@@ -86,12 +77,6 @@ public class CarFilterAdapter implements Specification<Car>{
 			});
 		}
 	}
-	
-//	private void findByModelOfCar(){
-//		if(!form.getModelOfCar().isEmpty()){
-//			filters.add((root, query, cb)->root.get("modelOfCar").in(form.getModelOfCar()));
-//		}
-//	}
 	
 	private void findByTypeClassOfCarTwo(){
 		if(!form.getTypeClassOfCar().isEmpty()){
@@ -119,10 +104,8 @@ public class CarFilterAdapter implements Specification<Car>{
 		}
 		findByTypeClassOfCar();
 		findByPrice();
-//		findClassOfCarByTypeClassOfCar();
 		findByTypeModelCar();
 		findByTypeClassOfCarTwo();
-//		findByModelOfCar();
 		findByStatusCar();
 		if(!filters.isEmpty()){
 			Specifications<Car> spec = Specifications.where(filters.get(0));

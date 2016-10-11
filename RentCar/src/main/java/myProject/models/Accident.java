@@ -1,6 +1,7 @@
 package myProject.models;
 
 import javax.persistence.*;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -74,4 +75,25 @@ public class Accident implements Serializable{
     public void setId(long id) {
         this.id = id;
     }
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Accident other = (Accident) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+    
 }

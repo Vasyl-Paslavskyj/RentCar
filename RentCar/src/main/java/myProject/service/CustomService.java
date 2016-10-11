@@ -21,11 +21,6 @@ import org.springframework.data.domain.Pageable;
  */
 public interface CustomService {
     int findCountOrdersForUse(String login, String password);;
-
-//    void save(String name, String passport,
-//            TypeClassOfCar typeClassOfCar, TypeModelCar typeModelCar, String registrationNamber,
-//            LocalDateTime dateTimeStart, City cityStart, LocalDateTime dateTimeFinish, City cityFinish,
-//            Integer rentalLength, Integer cost);
     
     void saveNew(long userId, long carId, String dateTimeStartStr, 
     		City cityStart, String dateTimeFinishStr, City cityFinish, 
@@ -42,17 +37,12 @@ public interface CustomService {
     Page<Custom> findAll(Pageable pageable, CustomFilterForm form);
     Page<Custom> findAll(Pageable pageable, CustomFilterFormForUser form);
     Page<Custom> findAll(Pageable pageable, HistoryFilterFormForUser form);
-//    Page<Custom> findAll(Pageable pageable, CustomFilterFormForUser form, Principal principal);
     
     Custom findById(long id);
     CustomForm findForForm(long id);
     CustomFormForUser findForFormForUser(long id);
-    
-//    int updateIsActiveById(long id);
 
     List<Custom> findByLoginAndPasswordAndCarRegistrationNamber(String login, String password, String registrationNamber);
-
-//    Custom findCustomByDriavarNameAndPassportAndCarRegistrationNamber(String name, String passport, String registrationNamber);
 
     int findCostByLoginAndPassword(String login, String password);
     

@@ -18,6 +18,12 @@
     <ul class="nav navbar-nav navbar-right">
     	<li><a>${authUser.login}</a></li>
     <security:authorize access="isAuthenticated()">
+    		<li>
+				<form:form action="/update" method="get"
+					class="navbar-form navbar-right">
+					<button type="submit" class="btn btn-default">Update</button>
+				</form:form>
+			</li>
 			<li>
 				<form:form action="/logout" method="post"
 					class="navbar-form navbar-right">
@@ -26,6 +32,12 @@
 			</li>
 		</security:authorize>
 		<security:authorize access="!isAuthenticated()">
+			<li>
+				<form:form action="/registration" method="get"
+					class="navbar-form navbar-right">
+					<button type="submit" class="btn btn-default">Registration</button>
+				</form:form>
+			</li>
 			<li>
 				<form:form action="/login" method="get"
 					class="navbar-form navbar-right">

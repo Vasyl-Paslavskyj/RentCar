@@ -4,8 +4,6 @@ import javax.validation.Valid;
 
 import myProject.form.AccidentForm;
 import myProject.form.filter.AccidentFilterForm;
-import myProject.form.filter.ModelOfCarFilterForm;
-import myProject.models.Accident;
 import myProject.models.Custom;
 import myProject.service.AccidentService;
 import myProject.service.CustomService;
@@ -77,27 +75,7 @@ public class AccidentController {
     	serviceAccident.saveIfOneCar(accident);
     	return "redirect:/admin/accident" +getParams(pageable, form);
     }
-    
-//    @RequestMapping(value="/admin/accidentIfTwo", method=RequestMethod.POST)
-//    public String saveIfTwo(@ModelAttribute("accident") Accident accident, @RequestParam long customFirstId, 
-//    		@RequestParam long customSecondId, Model model){
-//    	serviceAccident.saveIfTwoCars(accident, customFirstId, customSecondId);
-//    	return "adminAccident";
-//    }
-//   
-//    @RequestMapping(value="/admin/accidentIfOneCar", method=RequestMethod.POST)
-//    public String saveIfOneCar(@RequestParam String dateTimeString, @RequestParam String damage, 
-//    		@RequestParam int wastage, @RequestParam long customId){
-//    	serviceAccident.saveIfOneCar(dateTimeString, damage, wastage, customId);
-//    	return "redirect:/admin/accident";
-//    }   
-//    @RequestMapping(value="/admin/accidentIfTwoCars", method=RequestMethod.POST)
-//    public String saveIfTwoCars(@RequestParam String dateTimeString, @RequestParam String damage, 
-//    		@RequestParam int wastage, @RequestParam long customFirstId, @RequestParam long customSecondId){
-//    	serviceAccident.saveIfTwoCars(dateTimeString, damage, wastage, customFirstId, customSecondId);
-//    	return "redirect:/admin/accident";
-//    }
-    
+        
     @RequestMapping(value="/admin/accident/delete/{id}")
 	public String delete(@PathVariable long id, 
 			@PageableDefault(2) Pageable pageable, 

@@ -3,12 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="/WEB-INF/custom.tld" prefix="custom"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="UTF-8">
-</head>
-<body>
+<link rel="stylesheet" href="/resources/css/car.css">
 <div class="row-fluid">
 				<nav class="navbar navbar-default">
 					<div class="container-fluid">
@@ -27,105 +22,78 @@
 					</div>
 				</nav>
 </div>
-<form:form action="/admin/user" method="post" modelAttribute="user">
-	<form:hidden path="id"/>
-	
-	<c:forEach items="${param}" var="parameter">
-			<c:forEach items="${parameter.value}" var="value">
-				<c:if test="${parameter.key ne 'login' and parameter.key ne 'password' 
-				and parameter.key ne 'fullName' and parameter.key ne 'drivingExperience' 
-				and parameter.key ne 'email' and parameter.key ne 'id'}">
-					<input type="hidden" name="${parameter.key}" value="${value}">
-				</c:if>
-			</c:forEach>
-	</c:forEach>
-	
-	<table>
-		<tr><td><form:errors path="login" cssClass="error"/></td></tr>
-		<tr><td><form:input path="login" placeholder="String login"/></td></tr>
-		<tr><td><form:errors path="password" cssClass="error"/></td></tr>
-		<tr><td><form:input path="password" placeholder="String password"/></td></tr>
-		<tr><td><form:errors path="fullName" cssClass="error"/></td></tr>
-		<tr><td><form:input path="fullName" placeholder="String fullName"/></td></tr>
-		<tr><td><form:errors path="drivingExperience" cssClass="error"/></td></tr>
-		<tr><td><form:input path="drivingExperience" placeholder="int drivingExperience"/></td></tr>
-		<tr><td><form:errors path="email" cssClass="error"/></td></tr>
-		<tr><td><form:input path="email" placeholder="String email"/></td></tr>
-
-		<tr>
-			<td><input type="submit"></td>
-		</tr>
-	</table>
-</form:form>
-
-<form:form action="/admin/user" method="get" modelAttribute="filter">
-	<c:forEach items="${param}" var="parameter">
-			<c:forEach items="${parameter.value}" var="value">
-				<c:if test="${parameter.key ne 'search'}">
-					<input type="hidden" name="${parameter.key}" value="${value}">
-				</c:if>
-			</c:forEach>
-	</c:forEach>
-	<table>
-			<tr>
-				<td><form:input path="search" placeholder="search"/><input type="submit" value="ok"></td>
-			</tr>
-	</table>
-</form:form>
-
-<table>
-  <tr>
-    <th>Login</th>
-    <th>Password</th>
-    <th>FullName</th>
-    <th>Driving_experience</th>
-    <th>Email</th>
-  </tr>
-  <c:forEach items="${page.content}" var="user">
-    <tr>
-      <td>${user.login}</td>
-      <td>${user.password}</td>
-      <td>${user.fullName}</td>
-      <td>${user.drivingExperience}</td>
-      <td>${user.email}</td>
-      <td><a href="/admin/user/delete/${user.id}?page=${page.number+1}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">delete</a></td>
-      <td><a href="/admin/user/update/${user.id}?page=${page.number+1}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">update</a></td>
-    </tr>
-  </c:forEach>
-  
- <tr>
-  	<c:if test="${!page.isFirst()}">
-  		<td>
-  			<a href="??page=${page.number}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">Previous</a>
-  		</td>
-  	</c:if>
-  	<c:if test="${!page.isLast()}">
-  		<td>
-  			<a href="?page=${page.number+2}&size=${page.size}&sort=${param['sort']}&search=${param['search']}">Next</a>
-  		</td>
-  	</c:if>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=1&sort=${param['sort']}&search=${param['search']}">1</a></td>
-  	<td><a href="?page=1&size=3&sort=${param['sort']}&search=${param['search']}">3</a></td>
-  	<td><a href="?page=1&size=5&sort=${param['sort']}&search=${param['search']}">5</a></td>
-  	<td><a href="?page=1&size=10&sort=${param['sort']}&search=${param['search']}">10</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=login&search=${param['search']}">Login asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=login,desc&search=${param['search']}">Login desc</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=fullName&search=${param['search']}">FullName asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=fullName,desc&search=${param['search']}">FullName desc</a></td>
-</tr>
-<tr>
-  	<td><a href="?page=1&size=${page.size}&sort=drivingExperience&search=${param['search']}">DrivingExperience asc</a></td>
-  	<td><a href="?page=1&size=${page.size}&sort=drivingExperience,desc&search=${param['search']}">DrivingExperience desc</a></td>
-</tr>
-</table>
-<div class="col-md-12 text-center">
-		<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>"/>
+<div class="row-fluid">
+	<div class="col-md-2 col-xs-12">
+		<h5>Search by User login</h5>
+		<form:form action="/admin/user" class="form-inline" method="get" modelAttribute="filter">
+			<custom:hiddenInputs excludeParams="search"/>
+				<div class="form-group">
+					<form:input path="search" placeholder="search by User login" class="form-control"/>
+					<button type="submit" class="btn btn-primary">Ok</button>
+				</div>
+		</form:form>
+	</div>
+	<div class="col-md-8 col-xs-12">
+		<h4>Add user</h4>
+		<form:form action="/admin/user" method="post" modelAttribute="user" class="form-inline">
+			<form:errors path="*" />
+			<form:hidden path="id" />
+			<custom:hiddenInputs excludeParams="login, password, fullName, drivingExperience, email, id"/>
+			<div class="form-group">
+				<label for="login"><form:errors path="login" /></label>
+				<form:input path="login" id="login" class="form-control" placeholder="login"/>
+				<label for="password"><form:errors path="password" /></label>
+				<form:input path="password" id="password" class="form-control" placeholder="password"/>
+				<label for="fullName"><form:errors path="fullName" /></label>
+				<form:input path="fullName" id="fullName" class="form-control" placeholder="fullName"/>
+				<label for="drivingExperience"><form:errors path="drivingExperience" /></label>
+				<form:input path="drivingExperience" id="drivingExperience" class="form-control" placeholder="drivingExperience"/>
+				<label for="email"><form:errors path="email" /></label>
+				<form:input path="email" id="email" class="form-control" placeholder="email"/>
+				<button type="submit" class="btn btn-primary">Create</button>
+			</div>
+		</form:form>
+		<div class="row">
+			<div class="col-md-2"><h5>Login</h5></div>
+<%--			<div class="col-md-3"><h5>Password</h5></div>--%>
+			<div class="col-md-3"><h5>FullName</h5></div>
+			<div class="col-md-2"><h5>Driving <br> experience</h5></div>
+			<div class="col-md-3"><h5>Email</h5></div>
+			<div class="col-md-1"><h5>Delete</h5></div>
+			<div class="col-md-1"><h5>Update</h5></div>
+		</div>
+		<c:forEach items="${page.content}" var="user">
+			<div class="row">
+				<div class="col-md-2">${user.login}</div>
+<%--				<div class="col-md-3">${user.password}</div>--%>
+				<div class="col-md-3">${user.fullName}</div>
+				<div class="col-md-2">${user.drivingExperience}</div>
+				<div class="col-md-3">${user.email}</div>
+				<div class="col-md-1"><a href="/admin/user/delete/${user.id}<custom:allParams/>">delete</a></div>
+				<div class="col-md-1"><a href="/admin/user/update/${user.id}<custom:allParams/>">update</a></div>
+			</div>
+		</c:forEach>
+		<div class="col-md-12 text-center">
+			<custom:pageable page="${page}" cell="<li></li>" container="<ul class='pagination'></ul>" />
+		</div>
+	</div>
+	<div class="col-md-2 col-xs-12">
+			<div class="col-md-6">
+				<div class="dropdown">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Sort <span class="caret"></span>
+					</button>
+					<ul class="dropdown-menu">
+						<custom:sort innerHtml="Login asc" paramValue="login"/>
+						<custom:sort innerHtml="Login desc" paramValue="login,desc"/>
+						<custom:sort innerHtml="FullName asc" paramValue="fullName"/>
+						<custom:sort innerHtml="FullName desc" paramValue="fullName,desc"/>
+						<custom:sort innerHtml="DrivingExperience asc" paramValue="drivingExperience"/>
+						<custom:sort innerHtml="DrivingExperience desc" paramValue="drivingExperience,desc"/>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<custom:size posibleSizes="1,3,5,10" size="${page.size}" title="Розмір сторінки"/>
+			</div>
+	</div>
 </div>
-</body>
-</html>

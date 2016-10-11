@@ -10,7 +10,6 @@ import javax.persistence.criteria.Root;
 
 import myProject.form.filter.CustomFilterForm;
 import myProject.models.Car;
-import myProject.models.ClassOfCar;
 import myProject.models.Custom;
 import myProject.models.ModelOfCar;
 import myProject.models.User;
